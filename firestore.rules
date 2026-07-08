@@ -1,0 +1,99 @@
+rules_version = '2';
+
+// ALU Ventures — Firestore security rules.
+//
+// These rules are the server-side half of the platform's trust model. Even
+// though the Flutter UI already hides actions a user shouldn't take, the rules
+// re-enforce every important invariant so the backend is safe regardless of the
+// client (defence in depth). Read the report's "Backend & Security" section
+// alongside this file.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---- helpers ----
+    function signedIn() {
+      return request.auth != null;
+    }
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+    function ownsStartup(startupId) {
+      return signedIn()
+        && get(/databases/$(database)/documents/startups/$(startupId)).data.ownerUid == request.auth.uid;
+    }
+    function startupVerified(startupId) {
+      return get(/databases/$(database)/documents/startups/$(startupId)).data.status == 'verified';
+    }
+
+    // ---- users ----
+    // A user reads/edits only their own profile. Admins may read any profile.
+    // Nobody can grant themselves admin: isAdmin must not change on self-update.
+    match /users/{uid} {
+      allow read: if isSelf(uid) || isAdmin();
+      allow create: if isSelf(uid) && request.resource.data.isAdmin == false;
+      allow update: if isSelf(uid)
+        && request.resource.data.isAdmin == resource.data.isAdmin
+        && request.resource.data.role == resource.data.role;
+      allow delete: if false;
+
+      // Saved opportunities live under the user and are fully private.
+      match /bookmarks/{oppId} {
+        allow read, write: if isSelf(uid);
+      }
+    }
+
+    // ---- startups ----
+    // Anyone signed in can view startups (needed for discovery + admin review).
+    // A founder creates their own startup in `pending`; only an admin may change
+    // `status`. Founders may edit their details but never their own status.
+    match /startups/{startupId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.status == 'pending';
+      allow update: if isAdmin()
+        || (resource.data.ownerUid == request.auth.uid
+            && request.resource.data.status == resource.data.status
+            && request.resource.data.ownerUid == resource.data.ownerUid);
+      allow delete: if isAdmin() || resource.data.ownerUid == request.auth.uid;
+    }
+
+    // ---- opportunities ----
+    // Readable by any signed-in user. Only the owner of a VERIFIED startup may
+    // post. Edits/deletes are owner-only — EXCEPT a single applicant-count
+    // increment, which any signed-in user may make when they apply (and nothing
+    // else in the doc may change on that path).
+    match /opportunities/{oppId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && ownsStartup(request.resource.data.startupId)
+        && startupVerified(request.resource.data.startupId);
+      allow update: if ownsStartup(resource.data.startupId)
+        || (signedIn()
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['applicantCount'])
+            && request.resource.data.applicantCount == resource.data.applicantCount + 1);
+      allow delete: if ownsStartup(resource.data.startupId);
+    }
+
+    // ---- applications ----
+    // The student who created it can read it; the owning startup can read it.
+    // A student creates their own application; only the owning startup updates
+    // its status. No deletes (an audit trail of applications is kept).
+    match /applications/{appId} {
+      allow read: if signedIn()
+        && (resource.data.studentUid == request.auth.uid
+            || ownsStartup(resource.data.startupId));
+      allow create: if signedIn()
+        && request.resource.data.studentUid == request.auth.uid
+        && request.resource.data.status == 'applied';
+      allow update: if ownsStartup(resource.data.startupId);
+      allow delete: if false;
+    }
+  }
+}

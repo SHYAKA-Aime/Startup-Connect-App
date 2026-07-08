@@ -1,0 +1,27 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "alu-ventures",
+          "appId": "1:589632206953:android:000dc4783433119d838af8",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "alu-ventures",
+          "configurations": {
+            "android": "1:589632206953:android:000dc4783433119d838af8"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "nam5",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}
