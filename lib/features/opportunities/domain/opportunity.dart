@@ -51,6 +51,7 @@ const kCategories = ['Design', 'Engineering', 'Marketing', 'Data', 'Other'];
 class Opportunity {
   final String id;
   final String startupId;
+  final String startupOwnerUid; // denormalised: lets the owner query applicants
   final String startupName;
   final String? startupLogoUrl;
   final String title;
@@ -67,6 +68,7 @@ class Opportunity {
   const Opportunity({
     required this.id,
     required this.startupId,
+    this.startupOwnerUid = '',
     required this.startupName,
     this.startupLogoUrl,
     required this.title,
@@ -86,6 +88,7 @@ class Opportunity {
     return Opportunity(
       id: doc.id,
       startupId: d['startupId'] as String? ?? '',
+      startupOwnerUid: d['startupOwnerUid'] as String? ?? '',
       startupName: d['startupName'] as String? ?? '',
       startupLogoUrl: d['startupLogoUrl'] as String?,
       title: d['title'] as String? ?? '',
@@ -104,6 +107,7 @@ class Opportunity {
 
   Map<String, dynamic> toMap() => {
         'startupId': startupId,
+        'startupOwnerUid': startupOwnerUid,
         'startupName': startupName,
         'startupLogoUrl': startupLogoUrl,
         'title': title,
@@ -136,6 +140,7 @@ class Opportunity {
     return Opportunity(
       id: id,
       startupId: startupId,
+      startupOwnerUid: startupOwnerUid,
       startupName: startupName,
       startupLogoUrl: startupLogoUrl,
       title: title ?? this.title,
