@@ -86,13 +86,17 @@ service cloud.firestore {
     // A student creates their own application; only the owning startup updates
     // its status. No deletes (an audit trail of applications is kept).
     match /applications/{appId} {
+      // The startup owner uid is denormalised onto the application so both the
+      // student's tracker and the startup's applicant list authorise with a
+      // simple field match — no get(), which Firestore can't use for list queries.
       allow read: if signedIn()
-        && (resource.data.studentUid == request.auth.uid
-            || ownsStartup(resource.data.startupId));
+        && (resource == null
+            || resource.data.studentUid == request.auth.uid
+            || resource.data.startupOwnerUid == request.auth.uid);
       allow create: if signedIn()
         && request.resource.data.studentUid == request.auth.uid
         && request.resource.data.status == 'applied';
-      allow update: if ownsStartup(resource.data.startupId);
+      allow update: if resource.data.startupOwnerUid == request.auth.uid;
       allow delete: if false;
     }
   }

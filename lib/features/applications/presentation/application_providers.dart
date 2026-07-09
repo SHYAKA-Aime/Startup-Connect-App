@@ -13,9 +13,11 @@ final myApplicationsProvider = StreamProvider<List<Application>>((ref) {
 /// Applicants for one opportunity — the startup's review list, live.
 final applicantsProvider =
     StreamProvider.family<List<Application>, String>((ref, opportunityId) {
+  final user = ref.watch(appUserProvider);
+  if (user == null) return Stream.value(const []);
   return ref
       .watch(applicationRepositoryProvider)
-      .watchForOpportunity(opportunityId);
+      .watchForOpportunity(opportunityId, user.uid);
 });
 
 /// Whether the current student already applied (drives the Apply button).

@@ -24,6 +24,7 @@ class ApplicationController extends AutoDisposeAsyncNotifier<void> {
       opportunityId: opp.id,
       opportunityTitle: opp.title,
       startupId: opp.startupId,
+      startupOwnerUid: opp.startupOwnerUid,
       startupName: opp.startupName,
       studentUid: student.uid,
       studentName: student.fullName,

@@ -36,11 +36,16 @@ class ApplicationRepository {
       .map((s) => s.docs.map(Application.fromDoc).toList());
 
   /// Everyone who applied to a specific opportunity — the startup's review list.
-  Stream<List<Application>> watchForOpportunity(String opportunityId) => _col
-      .where('opportunityId', isEqualTo: opportunityId)
-      .orderBy('createdAt', descending: true)
-      .snapshots()
-      .map((s) => s.docs.map(Application.fromDoc).toList());
+  /// Filtered by the owner uid so the query authorises via a field match rather
+  /// than a get() in the rules (which Firestore can't use for list queries).
+  Stream<List<Application>> watchForOpportunity(
+          String opportunityId, String ownerUid) =>
+      _col
+          .where('startupOwnerUid', isEqualTo: ownerUid)
+          .where('opportunityId', isEqualTo: opportunityId)
+          .orderBy('createdAt', descending: true)
+          .snapshots()
+          .map((s) => s.docs.map(Application.fromDoc).toList());
 
   /// Whether the current student has already applied (drives the Apply button).
   Stream<bool> watchHasApplied(String opportunityId, String studentUid) => _col

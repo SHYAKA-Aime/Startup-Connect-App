@@ -33,6 +33,7 @@ class Application {
   final String opportunityId;
   final String opportunityTitle;
   final String startupId;
+  final String startupOwnerUid; // denormalised: lets the owner query applicants
   final String startupName;
   final String studentUid;
   final String studentName;
@@ -46,6 +47,7 @@ class Application {
     required this.opportunityId,
     required this.opportunityTitle,
     required this.startupId,
+    this.startupOwnerUid = '',
     required this.startupName,
     required this.studentUid,
     required this.studentName,
@@ -66,6 +68,7 @@ class Application {
       opportunityId: d['opportunityId'] as String? ?? '',
       opportunityTitle: d['opportunityTitle'] as String? ?? '',
       startupId: d['startupId'] as String? ?? '',
+      startupOwnerUid: d['startupOwnerUid'] as String? ?? '',
       startupName: d['startupName'] as String? ?? '',
       studentUid: d['studentUid'] as String? ?? '',
       studentName: d['studentName'] as String? ?? '',
@@ -80,6 +83,7 @@ class Application {
         'opportunityId': opportunityId,
         'opportunityTitle': opportunityTitle,
         'startupId': startupId,
+        'startupOwnerUid': startupOwnerUid,
         'startupName': startupName,
         'studentUid': studentUid,
         'studentName': studentName,
@@ -96,6 +100,7 @@ class Application {
         opportunityId: opportunityId,
         opportunityTitle: opportunityTitle,
         startupId: startupId,
+        startupOwnerUid: startupOwnerUid,
         startupName: startupName,
         studentUid: studentUid,
         studentName: studentName,

@@ -37,6 +37,7 @@ class OpportunityController extends AutoDisposeAsyncNotifier<void> {
       final opp = Opportunity(
         id: existingId ?? '',
         startupId: startup.id,
+        startupOwnerUid: startup.ownerUid,
         startupName: startup.name,
         title: title.trim(),
         description: description.trim(),
