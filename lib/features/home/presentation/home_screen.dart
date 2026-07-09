@@ -39,7 +39,7 @@ class HomeScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Hello, $firstName 👋',
+                        Text('Hello, $firstName',
                             style: const TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.w800)),
                         const SizedBox(height: 4),
@@ -165,8 +165,9 @@ class _HeroCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          gradient: AppColors.heroGradient,
+          color: AppColors.navy,
           borderRadius: BorderRadius.circular(20),
+          boxShadow: AppColors.softShadow,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +177,7 @@ class _HeroCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: AppColors.red,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(Icons.auto_awesome, color: Colors.white),

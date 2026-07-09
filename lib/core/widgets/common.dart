@@ -72,20 +72,24 @@ class SoftCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.surface,
-      borderRadius: BorderRadius.circular(AppTheme.radius),
-      child: InkWell(
-        onTap: onTap,
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppTheme.radius),
-        child: Container(
-          width: double.infinity,
-          padding: padding ?? const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppTheme.radius),
-            border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.border),
+        boxShadow: AppColors.softShadow,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(AppTheme.radius),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppTheme.radius),
+          child: Padding(
+            padding: padding ?? const EdgeInsets.all(16),
+            child: child,
           ),
-          child: child,
         ),
       ),
     );
@@ -152,7 +156,14 @@ class EmptyState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 56, color: AppColors.textSecondary),
+            Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: AppColors.navy.withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Icon(icon, size: 40, color: AppColors.navy),
+            ),
             const SizedBox(height: 16),
             Text(
               title,
@@ -223,9 +234,22 @@ class SectionHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title,
-            style:
-                const TextStyle(fontSize: 17, fontWeight: FontWeight.w800)),
+        Row(
+          children: [
+            Container(
+              width: 4,
+              height: 18,
+              decoration: BoxDecoration(
+                color: AppColors.red,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Text(title,
+                style: const TextStyle(
+                    fontSize: 17, fontWeight: FontWeight.w800)),
+          ],
+        ),
         ?action,
       ],
     );

@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(gradient: AppColors.heroGradient),
+        color: AppColors.navy,
         child: const Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -59,6 +59,16 @@ class _Logo extends StatelessWidget {
             fontWeight: FontWeight.w700,
             fontSize: 22,
             letterSpacing: 1,
+          ),
+        ),
+        const SizedBox(height: 14),
+        // ALU red accent — brings the second brand colour into the splash.
+        Container(
+          width: 44,
+          height: 4,
+          decoration: BoxDecoration(
+            color: AppColors.red,
+            borderRadius: BorderRadius.circular(2),
           ),
         ),
       ],

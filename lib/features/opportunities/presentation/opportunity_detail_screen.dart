@@ -234,6 +234,12 @@ class _BottomBar extends ConsumerWidget {
     return _bar(
       context,
       ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.red,
+          foregroundColor: Colors.white,
+          disabledBackgroundColor: AppColors.chipBg,
+          disabledForegroundColor: AppColors.textSecondary,
+        ),
         onPressed: hasApplied || submitting
             ? null
             : () => _showApplySheet(context, ref, opp, user),
@@ -243,7 +249,16 @@ class _BottomBar extends ConsumerWidget {
                 width: 22,
                 child: CircularProgressIndicator(
                     strokeWidth: 2, color: Colors.white))
-            : Text(hasApplied ? 'Applied ✓' : 'Apply now'),
+            : hasApplied
+                ? const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.check_circle_outline, size: 20),
+                      SizedBox(width: 8),
+                      Text('Applied'),
+                    ],
+                  )
+                : const Text('Apply now'),
       ),
     );
   }
