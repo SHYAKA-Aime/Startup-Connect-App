@@ -23,7 +23,7 @@ Built for the Mobile Application Development final project.
 
 ## Tech stack
 
-- **Flutter** (Dart) — Material 3, ALU brand design system
+- **Flutter 3.44 / Dart 3.12** — Material 3, ALU brand design system
 - **Riverpod 2** — state management (`Notifier` / `AsyncNotifier`, no codegen)
 - **Firebase** — Authentication (email/password) + Cloud Firestore (real-time)
 - **go_router** — declarative routing with an auth/role redirect guard
@@ -42,7 +42,7 @@ Widgets ──watch──▶ Riverpod providers ──▶ Repositories ──▶
 lib/
   app/        app, router, theme, global providers
   core/       shared widgets
-  features/   auth, startups, opportunities, applications, profile, shell
+  features/   auth, home, startups, opportunities, applications, profile, shell
               (each feature: domain / data / presentation)
 firestore.rules          server-side security (verification, ownership, privacy)
 firestore.indexes.json   composite indexes for the app's queries
