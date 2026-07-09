@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Central design system for ALU Ventures.
 ///
@@ -13,7 +14,7 @@ class AppColors {
   // ALU brand
   static const Color navy = Color(0xFF0B2C5D); // primary brand navy
   static const Color navyDark = Color(0xFF071E3F);
-  static const Color navySoft = Color(0xFF1C4A8A); // lighter navy for gradients
+  static const Color navySoft = Color(0xFF1C4A8A); // lighter navy for tints & accents
   static const Color red = Color(0xFFE11F3C); // ALU red — used for key CTAs
   static const Color redDark = Color(0xFFB01730);
 
@@ -35,12 +36,15 @@ class AppColors {
   static const Color chipBg = Color(0xFFEEF1F6);
   static const Color border = Color(0xFFE4E7EE);
 
-  /// Gradient used on hero / featured cards — navy into ALU red.
-  static const LinearGradient heroGradient = LinearGradient(
-    colors: [navy, navySoft, red],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
+  /// Soft, low-opacity navy shadow — gives cards and hero panels depth without
+  /// resorting to gradients. Kept in the design system so depth stays uniform.
+  static const List<BoxShadow> softShadow = [
+    BoxShadow(
+      color: Color(0x140B2C5D), // brand navy at ~8% opacity
+      blurRadius: 20,
+      offset: Offset(0, 8),
+    ),
+  ];
 }
 
 class AppTheme {
@@ -59,14 +63,42 @@ class AppTheme {
         surface: AppColors.surface,
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.background,
-        foregroundColor: AppColors.textPrimary,
+        backgroundColor: AppColors.navy,
+        foregroundColor: Colors.white,
         elevation: 0,
+        scrolledUnderElevation: 0,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         titleTextStyle: TextStyle(
-          color: AppColors.textPrimary,
+          color: Colors.white,
           fontSize: 18,
           fontWeight: FontWeight.w700,
+        ),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: AppColors.navy,
+        elevation: 0,
+        height: 66,
+        indicatorColor: AppColors.red,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        iconTheme: WidgetStateProperty.resolveWith(
+          (states) => IconThemeData(
+            color: states.contains(WidgetState.selected)
+                ? Colors.white
+                : Colors.white70,
+          ),
+        ),
+        labelTextStyle: WidgetStateProperty.resolveWith(
+          (states) => TextStyle(
+            fontSize: 12,
+            fontWeight: states.contains(WidgetState.selected)
+                ? FontWeight.w700
+                : FontWeight.w500,
+            color: states.contains(WidgetState.selected)
+                ? Colors.white
+                : Colors.white70,
+          ),
         ),
       ),
       cardTheme: CardThemeData(

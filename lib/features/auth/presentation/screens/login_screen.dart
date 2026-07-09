@@ -58,7 +58,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const _BrandHeader(
-                  title: 'Welcome back 👋',
+                  title: 'Welcome back',
                   subtitle: 'Sign in to continue to ALU Ventures.',
                 ),
                 const SizedBox(height: 32),

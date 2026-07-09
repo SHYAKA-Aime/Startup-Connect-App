@@ -36,16 +36,14 @@ class _AdminShellState extends State<AdminShell> {
       bottomNavigationBar: NavigationBar(
         selectedIndex: _index,
         onDestinationSelected: (i) => setState(() => _index = i),
-        backgroundColor: AppColors.surface,
-        indicatorColor: AppColors.navy.withValues(alpha: 0.12),
         destinations: const [
           NavigationDestination(
               icon: Icon(Icons.verified_user_outlined),
-              selectedIcon: Icon(Icons.verified_user, color: AppColors.navy),
+              selectedIcon: Icon(Icons.verified_user),
               label: 'Verification'),
           NavigationDestination(
               icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person, color: AppColors.navy),
+              selectedIcon: Icon(Icons.person),
               label: 'Account'),
         ],
       ),
