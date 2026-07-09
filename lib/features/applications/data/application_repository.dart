@@ -11,12 +11,8 @@ class ApplicationRepository {
   CollectionReference<Map<String, dynamic>> get _col =>
       _db.collection('applications');
 
-  /// Submit an application. Uses a Firestore transaction so that:
-  ///   1. we reject a second application for the same opportunity, and
-  ///   2. the opportunity's denormalised `applicantCount` is incremented
-  ///      atomically with the write.
-  /// Doing both in one transaction is what keeps the counter and the documents
-  /// consistent even if two students apply at the same instant.
+  /// Submit an application in a transaction: reject a duplicate, and increment
+  /// the opportunity's applicantCount atomically with the write.
   Future<void> apply(Application application) async {
     final appRef = _col.doc(application.id);
     final oppRef =
@@ -52,8 +48,7 @@ class ApplicationRepository {
       .snapshots()
       .map((d) => d.exists);
 
-  /// Startup moves an application along its lifecycle. The student sees the new
-  /// status instantly because their tracker is a live snapshot of this same doc.
+  /// Startup advances an application; the student's tracker reflects it live.
   Future<void> setStatus(String applicationId, ApplicationStatus status) =>
       _col.doc(applicationId).update({'status': status.asString});
 }

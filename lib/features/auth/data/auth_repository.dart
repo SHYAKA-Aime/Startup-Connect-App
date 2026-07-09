@@ -3,12 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../domain/app_user.dart';
 
-/// Wraps Firebase Authentication + the `users` collection.
-///
-/// The rest of the app never touches [FirebaseAuth] or [FirebaseFirestore]
-/// directly — everything goes through repositories. That single seam is what
-/// lets us swap the backend or mock it in tests without touching the UI, and is
-/// the core of the layered architecture described in the report.
+/// Wraps Firebase Authentication and the `users` collection.
 class AuthRepository {
   AuthRepository(this._auth, this._db);
 
@@ -18,8 +13,7 @@ class AuthRepository {
   CollectionReference<Map<String, dynamic>> get _users =>
       _db.collection('users');
 
-  /// Emits every time the user signs in or out. The router listens to this to
-  /// redirect between the auth flow and the main app automatically.
+  /// Emits on sign-in/out; the router redirects on this.
   Stream<User?> authStateChanges() => _auth.authStateChanges();
 
   User? get currentAuthUser => _auth.currentUser;
@@ -34,9 +28,7 @@ class AuthRepository {
     return doc.exists ? AppUser.fromDoc(doc) : null;
   }
 
-  /// Creates the auth credential AND the profile document in one flow. If the
-  /// profile write fails we surface the error rather than leaving a half-created
-  /// account silently — the caller decides how to react.
+  /// Creates the auth credential and the profile document together.
   Future<void> signUp({
     required String email,
     required String password,

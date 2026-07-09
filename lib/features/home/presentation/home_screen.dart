@@ -11,10 +11,8 @@ import '../../opportunities/presentation/opportunity_providers.dart';
 import '../../opportunities/presentation/widgets/opportunity_card.dart';
 import '../../shell/shell_providers.dart';
 
-/// Student home: greeting, a skill-matched hero recommendation, category
-/// shortcuts and the live "Recent opportunities" feed. Everything below the
-/// greeting is driven by Firestore streams, so new posts appear without a
-/// refresh.
+/// Student home: greeting, skill-matched recommendation, categories, and the
+/// live "Recent opportunities" feed.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../app/theme.dart';
 
-/// Small reusable UI atoms shared across the app. Centralising them keeps the
-/// look consistent and the screen files short — a code-reuse point for the
-/// Code Quality rubric.
+/// Small reusable UI atoms shared across the app.
 
 /// A rounded pill used for skills, tags, and metadata.
 class TagChip extends StatelessWidget {
@@ -96,8 +94,7 @@ class SoftCard extends StatelessWidget {
   }
 }
 
-/// A rounded, tinted logo/avatar placeholder built from an entity's initials —
-/// avoids needing image uploads while still looking intentional.
+/// Rounded, tinted avatar built from an entity's initials.
 class InitialsAvatar extends StatelessWidget {
   const InitialsAvatar(this.name, {super.key, this.size = 48, this.color});
 

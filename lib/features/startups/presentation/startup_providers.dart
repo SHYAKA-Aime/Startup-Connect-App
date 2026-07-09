@@ -20,9 +20,8 @@ final startupByIdProvider =
   return ref.watch(startupRepositoryProvider).watchById(id);
 });
 
-/// Verification queue for the admin console. Gated on auth so that signing out
-/// (e.g. switching from startup to admin) can't leave a dead, permission-denied
-/// stream — it re-subscribes when the admin signs in.
+/// Verification queue for the admin console (gated on auth so it re-subscribes
+/// cleanly after an account switch).
 final pendingStartupsProvider = StreamProvider<List<Startup>>((ref) {
   if (ref.watch(authStateProvider).valueOrNull == null) {
     return Stream.value(const <Startup>[]);

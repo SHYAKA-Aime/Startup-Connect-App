@@ -33,9 +33,7 @@ class StartupRepository {
     return ref.id;
   }
 
-  /// Updates only founder-editable fields. Crucially it does NOT touch `status`
-  /// or `ownerUid`, so editing your profile can never silently re-verify (or
-  /// un-verify) your startup — that transition is admin-only.
+  /// Updates only founder-editable fields (never status or ownerUid).
   Future<void> updateDetails(Startup startup) =>
       _col.doc(startup.id).update({
         'name': startup.name,

@@ -7,12 +7,8 @@ import '../opportunities/presentation/explore_screen.dart';
 import '../profile/presentation/profile_screen.dart';
 import 'shell_providers.dart';
 
-/// The student's main container: four tabs behind a bottom nav bar.
-///
-/// The active tab lives in [studentTabProvider] (Riverpod) rather than local
-/// state, so other screens can switch tabs programmatically. An [IndexedStack]
-/// keeps every tab alive (scroll position + active Firestore streams) so
-/// returning to a tab doesn't re-fetch.
+/// The student's four-tab container. The active tab lives in [studentTabProvider]
+/// so other screens can switch tabs; IndexedStack keeps each tab alive.
 class StudentShell extends ConsumerWidget {
   const StudentShell({super.key});
 

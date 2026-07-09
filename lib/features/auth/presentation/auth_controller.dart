@@ -29,13 +29,8 @@ String friendlyAuthError(Object error) {
   return 'Something went wrong. Please try again.';
 }
 
-/// Drives the sign-in / sign-up forms.
-///
-/// The controller's own state is an `AsyncValue<void>`: `loading` disables the
-/// button and shows a spinner, `error` shows the message, `data` means success.
-/// `AsyncValue.guard` runs the async work and captures any throw into the state
-/// without try/catch boilerplate — this is the idiomatic Riverpod pattern the
-/// report cites for keeping UI logic out of widgets.
+/// Drives the sign-in / sign-up forms. State is an `AsyncValue<void>`;
+/// `AsyncValue.guard` captures async errors so widgets stay free of try/catch.
 class AuthController extends AutoDisposeAsyncNotifier<void> {
   @override
   FutureOr<void> build() {}

@@ -7,10 +7,7 @@ import '../../auth/domain/app_user.dart';
 import '../../opportunities/domain/opportunity.dart';
 import '../domain/application.dart';
 
-/// Handles the write side of applications: a student submitting one, and a
-/// startup moving one along its lifecycle. Read-only streams live in
-/// application_providers.dart — this controller only performs actions and
-/// exposes their loading/error state as an `AsyncValue<void>`.
+/// Write-side controller for applications: submit, and advance status.
 class ApplicationController extends AutoDisposeAsyncNotifier<void> {
   @override
   FutureOr<void> build() {}

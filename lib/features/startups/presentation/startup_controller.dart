@@ -5,10 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../app/providers.dart';
 import '../domain/startup.dart';
 
-/// Write-side controller for a founder's own startup profile. Creating a startup
-/// always lands it in `pending` — it cannot post opportunities until an ALU
-/// admin verifies it. That rule is enforced here, in the UI, and again in the
-/// Firestore security rules (defence in depth).
+/// Write-side controller for a founder's startup profile. New startups start
+/// `pending` and can't post until an admin verifies them.
 class StartupController extends AutoDisposeAsyncNotifier<void> {
   @override
   FutureOr<void> build() {}
@@ -42,8 +40,7 @@ class StartupController extends AutoDisposeAsyncNotifier<void> {
         );
         await repo.create(startup);
       } else {
-        // Editing details never silently re-verifies: updateDetails writes only
-        // the editable fields and leaves `status` untouched.
+        // updateDetails writes only editable fields, leaving status untouched.
         final current = Startup(
           id: existingId,
           ownerUid: user.uid,

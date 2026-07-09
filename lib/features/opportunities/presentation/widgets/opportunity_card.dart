@@ -9,9 +9,7 @@ import '../../../../core/widgets/common.dart';
 import '../../domain/opportunity.dart';
 import '../opportunity_providers.dart';
 
-/// Compact opportunity row used across Home / Explore / Saved. A [ConsumerWidget]
-/// so the bookmark icon reflects live saved-state and can toggle it, without the
-/// parent list needing to know anything about bookmarks.
+/// Compact opportunity row (Home / Explore / Saved) with a live bookmark toggle.
 class OpportunityCard extends ConsumerWidget {
   const OpportunityCard(this.opp, {super.key});
 

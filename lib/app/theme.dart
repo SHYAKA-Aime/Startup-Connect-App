@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// Central design system for ALU Ventures.
-///
-/// Built around ALU's brand identity — deep navy + red on white — so the app
-/// reads as an official ALU-ecosystem product rather than a generic template.
-/// Keeping colours, radii and text styles in one place means every screen stays
-/// visually consistent and a rebrand is a one-file change: this is the
-/// "single source of truth" argument for maintainability you can make in the demo.
+/// ALU brand design system — colours, radii and text styles in one place.
 class AppColors {
   AppColors._();
 
@@ -18,7 +12,7 @@ class AppColors {
   static const Color red = Color(0xFFE11F3C); // ALU red — used for key CTAs
   static const Color redDark = Color(0xFFB01730);
 
-  // Semantic aliases (screens reference these, not raw brand colours)
+  // Semantic aliases
   static const Color primary = navy;
   static const Color accent = red;
 
@@ -36,8 +30,7 @@ class AppColors {
   static const Color chipBg = Color(0xFFEEF1F6);
   static const Color border = Color(0xFFE4E7EE);
 
-  /// Soft, low-opacity navy shadow — gives cards and hero panels depth without
-  /// resorting to gradients. Kept in the design system so depth stays uniform.
+  /// Soft navy shadow for card/panel depth.
   static const List<BoxShadow> softShadow = [
     BoxShadow(
       color: Color(0x140B2C5D), // brand navy at ~8% opacity

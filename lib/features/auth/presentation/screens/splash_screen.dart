@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../app/theme.dart';
 
-/// Shown only while the router is still deciding where to send the user
-/// (auth state / profile still resolving). It never navigates itself — the
-/// router's redirect does that the instant state is known.
+/// Shown while the router resolves auth/profile state; the redirect navigates.
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 

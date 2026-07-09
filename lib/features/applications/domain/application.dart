@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// The lifecycle a student's application moves through. The startup drives the
-/// transitions; the student sees them reflected in real time. Modelling this as
-/// an enum (rather than a free-text status) is what makes the "application
-/// tracker" and its coloured badges reliable.
+/// The lifecycle a student's application moves through (startup-driven).
 enum ApplicationStatus { applied, underReview, shortlisted, accepted, rejected }
 
 extension ApplicationStatusX on ApplicationStatus {
@@ -29,12 +26,8 @@ extension ApplicationStatusX on ApplicationStatus {
           orElse: () => ApplicationStatus.applied);
 }
 
-/// Mirrors a document in `applications/{applicationId}`.
-///
-/// Opportunity title and startup name are denormalised so the student's tracker
-/// and the startup's applicant list both render without extra reads. A composite
-/// key of (opportunityId + studentUid) is used as the doc id to make
-/// "one application per opportunity per student" a structural guarantee.
+/// Mirrors a document in `applications/{applicationId}`. Titles/names are
+/// denormalised so the tracker and applicant list render without extra reads.
 class Application {
   final String id;
   final String opportunityId;

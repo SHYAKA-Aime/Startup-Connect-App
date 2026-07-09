@@ -11,9 +11,7 @@ import '../../applications/presentation/application_providers.dart';
 import '../../auth/presentation/auth_controller.dart';
 import 'widgets/saved_opportunities_sheet.dart';
 
-/// Student profile: identity, live application stats derived from the same
-/// stream that powers the tracker, and account actions. If the user is flagged
-/// as an admin, the ALU verification console link appears here.
+/// Student profile: identity, live application stats, and account actions.
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 

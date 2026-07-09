@@ -7,13 +7,8 @@ import '../../core/widgets/common.dart';
 import '../auth/presentation/auth_controller.dart';
 import '../startups/presentation/admin_verification_screen.dart';
 
-/// The ALU admin's container. An admin's job is trust & safety — reviewing and
-/// verifying startups — so this shell deliberately carries NONE of the student
-/// browsing (Home / Explore / Applications) or founder posting UI. Two tabs: the
-/// verification queue (their real work) and a minimal account tab.
-///
-/// Routing sends any user with `isAdmin == true` here regardless of their base
-/// role, so the admin view is fully separate from the student and startup views.
+/// The admin's container: a verification queue and a minimal account tab, with
+/// none of the student/founder UI. Routing sends isAdmin users here.
 class AdminShell extends StatefulWidget {
   const AdminShell({super.key});
 
@@ -51,8 +46,7 @@ class _AdminShellState extends State<AdminShell> {
   }
 }
 
-/// Admin account tab — identity + sign out. Intentionally minimal: an admin has
-/// no application stats (student) and no startup profile (founder).
+/// Admin account tab — identity and sign out.
 class _AdminAccountTab extends ConsumerWidget {
   const _AdminAccountTab();
 

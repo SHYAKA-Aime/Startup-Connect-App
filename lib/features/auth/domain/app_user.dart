@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// Two kinds of accounts exist on the platform. The role is chosen at sign-up
-/// and drives which navigation shell, screens and permissions a user sees.
+/// Account role, chosen at sign-up; drives the navigation shell and permissions.
 enum UserRole { student, startup }
 
 extension UserRoleX on UserRole {
@@ -12,10 +11,6 @@ extension UserRoleX on UserRole {
 }
 
 /// Mirrors a document in the `users/{uid}` collection.
-///
-/// The model is deliberately dumb (no Firestore calls inside it) — parsing lives
-/// in [fromDoc] and serialisation in [toMap]. Repositories own all I/O. This
-/// separation is what keeps the domain layer testable and the app maintainable.
 class AppUser {
   final String uid;
   final String email;
@@ -69,7 +64,6 @@ class AppUser {
         'bio': bio,
         'skills': skills,
         'isAdmin': isAdmin,
-        // Written once on create; set from the server clock for consistency.
         'createdAt': createdAt == null
             ? FieldValue.serverTimestamp()
             : Timestamp.fromDate(createdAt!),

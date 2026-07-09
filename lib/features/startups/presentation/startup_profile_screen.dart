@@ -10,8 +10,7 @@ import '../../auth/presentation/auth_controller.dart';
 import '../domain/startup.dart';
 import 'startup_providers.dart';
 
-/// The founder's own startup profile tab: identity, verification status and
-/// account actions. Mirrors the student profile but framed around the startup.
+/// The founder's startup profile tab: identity, verification status, and account actions.
 class StartupProfileScreen extends ConsumerWidget {
   const StartupProfileScreen({super.key});
 

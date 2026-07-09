@@ -6,9 +6,8 @@ import '../../../../core/widgets/common.dart';
 import '../../../opportunities/presentation/opportunity_providers.dart';
 import '../../../opportunities/presentation/widgets/opportunity_card.dart';
 
-/// Opens the "Saved opportunities" bottom sheet. The saved list is the
-/// intersection of the user's bookmark ids with the live open-opportunities
-/// stream, so un-saving one removes it from the sheet immediately.
+/// Opens the "Saved opportunities" bottom sheet (bookmarks intersected with the
+/// live open-opportunities stream).
 Future<void> showSavedOpportunitiesSheet(BuildContext context) {
   return showModalBottomSheet(
     context: context,

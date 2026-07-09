@@ -6,9 +6,7 @@ import '../domain/opportunity.dart';
 
 /// Newest open opportunities — the student home "Recent" feed (real-time).
 final openOpportunitiesProvider = StreamProvider<List<Opportunity>>((ref) {
-  // Gate on being signed in. A Firestore listen fired while signed out gets a
-  // permanent permission-denied that never recovers, so we hold an empty
-  // stream until authenticated — and re-subscribe the moment auth changes.
+  // Gated on auth so a signed-out listen can't stick on permission-denied.
   if (ref.watch(authStateProvider).valueOrNull == null) {
     return Stream.value(const <Opportunity>[]);
   }
@@ -33,10 +31,7 @@ final startupOpportunitiesProvider =
   return ref.watch(opportunityRepositoryProvider).watchByStartup(startupId);
 });
 
-/// --- Discovery / search state -----------------------------------------------
-/// The active filter is held in a Notifier so any screen can update it and the
-/// results provider below rebuilds automatically. This is the classic
-/// "derived state" pattern: UI writes the filter, a computed provider reads it.
+/// Discovery filter state. Any screen updates it; the results provider recomputes.
 class OpportunityFilterNotifier extends Notifier<OpportunityFilter> {
   @override
   OpportunityFilter build() => const OpportunityFilter();
@@ -72,11 +67,8 @@ final filteredOpportunitiesProvider =
   return ref.watch(opportunityRepositoryProvider).watchFiltered(filter);
 });
 
-/// --- Recommendations --------------------------------------------------------
-/// A lightweight recommendation system: score each open opportunity by how many
-/// of its required skills overlap with the student's profile skills, then sort
-/// best-match first. It reuses the already-streamed open list, so it costs no
-/// extra Firestore reads — a scalability point worth making in the report.
+/// Ranks open opportunities by skill overlap with the student's profile.
+/// Reuses the already-streamed open list, so it adds no Firestore reads.
 final recommendedOpportunitiesProvider =
     Provider<List<Opportunity>>((ref) {
   final open = ref.watch(openOpportunitiesProvider).valueOrNull ?? const [];
@@ -92,7 +84,7 @@ final recommendedOpportunitiesProvider =
   return scored;
 });
 
-/// --- Bookmarks --------------------------------------------------------------
+// Bookmarks
 final bookmarkIdsProvider = StreamProvider<Set<String>>((ref) {
   final user = ref.watch(appUserProvider);
   if (user == null) return Stream.value(const {});
