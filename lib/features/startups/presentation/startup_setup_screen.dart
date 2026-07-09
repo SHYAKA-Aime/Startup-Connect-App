@@ -7,9 +7,7 @@ import '../../opportunities/domain/opportunity.dart' show kCategories;
 import 'startup_controller.dart';
 import 'startup_providers.dart';
 
-/// Create-or-edit the founder's startup profile. Doubles as both the initial
-/// onboarding step for a new startup account and the "edit" screen later, by
-/// prefilling from [myStartupProvider] when a profile already exists.
+/// Create-or-edit the founder's startup profile (prefills when one exists).
 class StartupSetupScreen extends ConsumerStatefulWidget {
   const StartupSetupScreen({super.key});
 

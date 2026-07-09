@@ -9,10 +9,7 @@ import 'application_controller.dart';
 import 'application_providers.dart';
 import 'my_applications_screen.dart' show statusColor;
 
-/// The startup's applicant-review screen for one opportunity. Changing an
-/// applicant's status here writes to Firestore; the student's tracker — a live
-/// snapshot of the same document — updates instantly. This is the two-sided
-/// real-time workflow to highlight in the demo.
+/// The startup's applicant-review screen for one opportunity.
 class ApplicantsScreen extends ConsumerWidget {
   const ApplicantsScreen({super.key, required this.opportunityId});
 

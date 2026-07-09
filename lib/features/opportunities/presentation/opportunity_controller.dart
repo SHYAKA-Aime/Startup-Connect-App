@@ -6,9 +6,8 @@ import '../../../app/providers.dart';
 import '../../startups/domain/startup.dart';
 import '../domain/opportunity.dart';
 
-/// Write-side controller for opportunities (create / edit / open-close /
-/// delete). A startup may only create an opportunity if its profile is
-/// verified — checked here before the write and again in the security rules.
+/// Write-side controller for opportunities. Posting requires a verified startup
+/// (checked here and again in the security rules).
 class OpportunityController extends AutoDisposeAsyncNotifier<void> {
   @override
   FutureOr<void> build() {}

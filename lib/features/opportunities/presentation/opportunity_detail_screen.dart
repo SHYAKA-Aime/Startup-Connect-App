@@ -12,9 +12,8 @@ import '../../startups/presentation/startup_providers.dart';
 import '../domain/opportunity.dart';
 import 'opportunity_providers.dart';
 
-/// Full opportunity view + the Apply action. Streams the opportunity by id so
-/// the applicant count updates live; streams `hasApplied` so the button flips to
-/// "Applied" the instant the write lands.
+/// Full opportunity view and the Apply action. Streams the opportunity and
+/// `hasApplied` so the count and button update live.
 class OpportunityDetailScreen extends ConsumerWidget {
   const OpportunityDetailScreen({super.key, required this.opportunityId});
 

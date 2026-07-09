@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// Trust model for the platform. A startup is created in `pending` state and can
-/// only post opportunities once an ALU admin moves it to `verified`. This is the
-/// "only ALU-recognised startups" requirement, enforced in both the UI and the
-/// Firestore security rules.
+/// Verification lifecycle; a startup can only post once an admin verifies it.
 enum VerificationStatus { pending, verified, rejected }
 
 extension VerificationStatusX on VerificationStatus {

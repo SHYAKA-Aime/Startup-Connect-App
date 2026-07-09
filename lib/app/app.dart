@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'router.dart';
 import 'theme.dart';
 
-/// Root widget. A [ConsumerWidget] so it can read the router provider — this is
-/// what connects Riverpod (state) to go_router (navigation) and Material (UI).
+/// Root widget: wires the Riverpod router provider into MaterialApp.
 class AluVenturesApp extends ConsumerWidget {
   const AluVenturesApp({super.key});
 

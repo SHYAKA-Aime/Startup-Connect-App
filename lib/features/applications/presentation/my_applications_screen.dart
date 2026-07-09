@@ -26,9 +26,7 @@ Color statusColor(ApplicationStatus s) {
   }
 }
 
-/// The student's live application tracker with status filter tabs. Because it
-/// watches a Firestore stream, a status change made by a startup shows up here
-/// in real time — the headline "real-time updates" demo moment.
+/// The student's live application tracker with status filter tabs.
 class MyApplicationsScreen extends ConsumerStatefulWidget {
   const MyApplicationsScreen({super.key});
 

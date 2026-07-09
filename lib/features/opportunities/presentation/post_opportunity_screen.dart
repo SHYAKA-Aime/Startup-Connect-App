@@ -8,8 +8,7 @@ import '../domain/opportunity.dart';
 import 'opportunity_controller.dart';
 import 'opportunity_providers.dart';
 
-/// Create or edit an opportunity. `opportunityId == null` → create; otherwise
-/// the form prefills from the streamed opportunity and saves an edit.
+/// Create or edit an opportunity (prefills from the stream when editing).
 class PostOpportunityScreen extends ConsumerStatefulWidget {
   const PostOpportunityScreen({super.key, this.opportunityId});
 

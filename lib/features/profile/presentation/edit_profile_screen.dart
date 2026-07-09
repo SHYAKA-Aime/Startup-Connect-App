@@ -5,9 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/providers.dart';
 import '../../../app/theme.dart';
 
-/// Lets a student edit their identity and — importantly — their skills, which
-/// feed the recommendation engine on Home. Skills are entered as chips so the
-/// data stays a clean `List<String>` rather than free text.
+/// Lets a student edit their identity and skills (which feed recommendations).
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
 

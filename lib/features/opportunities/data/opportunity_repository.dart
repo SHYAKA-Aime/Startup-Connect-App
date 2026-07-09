@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../domain/opportunity.dart';
 
-/// Filters applied on the discovery screen. Kept as a small immutable value so
-/// it can live in Riverpod state and be compared cheaply.
+/// Immutable filter state for the discovery screen.
 class OpportunityFilter {
   final String query;
   final String? category;
@@ -50,8 +49,7 @@ class OpportunityRepository {
   CollectionReference<Map<String, dynamic>> get _col =>
       _db.collection('opportunities');
 
-  /// Newest open opportunities — the home "Recent" feed. Streamed so a newly
-  /// posted role appears on every student's phone in real time.
+  /// Newest open opportunities — the home "Recent" feed.
   Stream<List<Opportunity>> watchOpen({int limit = 30}) => _col
       .where('isOpen', isEqualTo: true)
       .orderBy('createdAt', descending: true)
@@ -71,10 +69,8 @@ class OpportunityRepository {
       .snapshots()
       .map((d) => d.exists ? Opportunity.fromDoc(d) : null);
 
-  /// Discovery query. Firestore has no full-text search, so the category /
-  /// role / location facets are pushed to the server and the free-text term is
-  /// matched client-side over the already-narrow result set. This hybrid keeps
-  /// reads cheap while still feeling like search — discussed in the report.
+  /// Discovery query. Facets are filtered server-side; the free-text term is
+  /// matched client-side over the narrowed set (Firestore has no full-text search).
   Stream<List<Opportunity>> watchFiltered(OpportunityFilter f) {
     Query<Map<String, dynamic>> q = _col.where('isOpen', isEqualTo: true);
     if (f.category != null) q = q.where('category', isEqualTo: f.category);
@@ -107,9 +103,7 @@ class OpportunityRepository {
     return ref.id;
   }
 
-  /// Edits only the founder-editable content fields. Deliberately leaves
-  /// `createdAt`, `applicantCount` and `isOpen` untouched so an edit never
-  /// resets the post's age or its applicant counter.
+  /// Edits only content fields — leaves createdAt, applicantCount and isOpen intact.
   Future<void> update(Opportunity opp) => _col.doc(opp.id).update({
         'title': opp.title,
         'titleLower': opp.title.toLowerCase(),

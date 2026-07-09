@@ -8,11 +8,8 @@ import '../domain/opportunity.dart';
 import 'opportunity_providers.dart';
 import 'widgets/opportunity_card.dart';
 
-/// Discovery + search. The search box and the filter chips both write into
-/// [opportunityFilterProvider]; the results list watches
-/// [filteredOpportunitiesProvider], which re-queries Firestore whenever the
-/// filter changes. This one-way "state in → results out" flow is the core of
-/// the Riverpod story for search.
+/// Discovery + search. The search box and filter chips write into
+/// [opportunityFilterProvider]; the list watches [filteredOpportunitiesProvider].
 class ExploreScreen extends ConsumerStatefulWidget {
   const ExploreScreen({super.key});
 

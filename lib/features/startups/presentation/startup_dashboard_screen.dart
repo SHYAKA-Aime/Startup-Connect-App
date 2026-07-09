@@ -12,10 +12,8 @@ import '../../opportunities/presentation/opportunity_providers.dart';
 import '../domain/startup.dart';
 import 'startup_providers.dart';
 
-/// The startup founder's home. It gates on verification status:
-///   • no profile   → prompt to create one
-///   • pending      → info banner, posting disabled
-///   • verified     → post button + live list of their opportunities
+/// The startup founder's home; gates on verification: no profile → create,
+/// pending → posting disabled, verified → post + live opportunity list.
 class StartupDashboardScreen extends ConsumerWidget {
   const StartupDashboardScreen({super.key});
 

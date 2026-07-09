@@ -18,8 +18,7 @@ final applicantsProvider =
       .watchForOpportunity(opportunityId);
 });
 
-/// Whether the current student already applied to a given opportunity — drives
-/// the Apply button state on the detail screen.
+/// Whether the current student already applied (drives the Apply button).
 final hasAppliedProvider =
     StreamProvider.family<bool, String>((ref, opportunityId) {
   final user = ref.watch(appUserProvider);

@@ -17,7 +17,7 @@ import '../features/startups/presentation/admin_verification_screen.dart';
 import '../features/startups/presentation/startup_setup_screen.dart';
 import 'providers.dart';
 
-/// Named route paths kept in one place so navigation calls are typo-proof.
+/// Route paths.
 class Routes {
   static const splash = '/splash';
   static const login = '/login';
@@ -36,12 +36,8 @@ class Routes {
 
 const _authRoutes = {Routes.login, Routes.register, Routes.forgot};
 
-/// The single [GoRouter] for the app, exposed as a provider so its `redirect`
-/// can read Riverpod state. `redirect` is the guard that:
-///   • forces signed-out users into the auth flow, and
-///   • routes signed-in users to the correct shell for their role.
-/// A [ValueNotifier] bumped whenever auth/profile changes tells go_router to
-/// re-run `redirect`, so navigation reacts to login/logout automatically.
+/// App router. The redirect guard routes users to the right shell for their
+/// auth/role state; a ValueNotifier re-runs it whenever auth or profile changes.
 final goRouterProvider = Provider<GoRouter>((ref) {
   final refresh = ValueNotifier<int>(0);
   ref.listen(authStateProvider, (_, __) => refresh.value++);
@@ -76,8 +72,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         return loc == Routes.splash ? null : Routes.splash;
       }
 
-      // isAdmin takes precedence over the base role: an admin gets the admin
-      // shell, not the student/startup one, so the views never mix.
+      // isAdmin takes precedence over the base role.
       final target = appUser.isAdmin
           ? Routes.admin
           : appUser.isStartup
@@ -85,11 +80,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               : Routes.home;
       if (onAuthPage || loc == Routes.splash) return target;
 
-      // Never let a user sit inside another role's shell (e.g. an admin landing
-      // on the student Home). Sub-routes like /startup/post are unaffected.
+      // Keep users out of another role's shell (sub-routes are unaffected).
       const shellRoots = {Routes.home, Routes.startup, Routes.admin};
       if (shellRoots.contains(loc) && loc != target) return target;
-      return null; // already where they should be
+      return null;
     },
     routes: [
       GoRoute(path: Routes.splash, builder: (_, __) => const SplashScreen()),

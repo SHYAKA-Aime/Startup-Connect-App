@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// Bookmarks ("Saved opportunities") live under `users/{uid}/bookmarks/{oppId}`.
-///
-/// A per-user subcollection is the natural NoSQL shape here: each user only ever
-/// reads their own bookmarks, security rules become trivial ("uid must match the
-/// path"), and there's no shared document that becomes a write hotspot.
+/// Bookmarks live under `users/{uid}/bookmarks/{oppId}` — a private per-user
+/// subcollection.
 class BookmarkRepository {
   BookmarkRepository(this._db);
 

@@ -7,15 +7,8 @@ import '../../../core/widgets/common.dart';
 import '../domain/startup.dart';
 import 'startup_providers.dart';
 
-/// The ALU admin verification console — the trust gate that makes the platform
-/// ALU-specific. It streams every startup still in `pending` and lets an admin
-/// approve or reject. Approval flips `status` to `verified`, which (a) unlocks
-/// posting for that startup and (b) is required by the security rules for any
-/// opportunity to be created.
-///
-/// In production the admin flag would be a Firebase custom claim; for this
-/// project it's an `isAdmin` boolean on the user document, set once in the
-/// Firebase console. That trade-off is called out in the report.
+/// The admin verification console: streams pending startups and lets an admin
+/// approve (status → verified, which unlocks posting) or reject.
 class AdminVerificationScreen extends ConsumerWidget {
   const AdminVerificationScreen({super.key});
 

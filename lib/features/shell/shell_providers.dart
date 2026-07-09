@@ -1,7 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// The selected tab of the student shell. Held in Riverpod (not just local
-/// widget state) so other screens — e.g. the Home category shortcuts — can
-/// programmatically switch tabs, like tapping "Design" jumping to Explore
-/// with the filter pre-applied.
+/// Selected tab of the student shell; in Riverpod so other screens can switch tabs.
 final studentTabProvider = StateProvider<int>((ref) => 0);

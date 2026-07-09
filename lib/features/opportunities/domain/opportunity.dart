@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// Fixed vocabularies for opportunities. Using enums (not free text) keeps the
-/// data clean, makes filtering reliable, and means the discovery filters can be
-/// generated from the same source of truth.
+/// Fixed vocabularies for opportunities; drive the discovery filters.
 enum RoleType { partTime, fullTime, projectBased, volunteer }
 
 extension RoleTypeX on RoleType {
@@ -48,12 +46,8 @@ extension LocationTypeX on LocationType {
 /// The categories used to "Browse by category" on the home screen.
 const kCategories = ['Design', 'Engineering', 'Marketing', 'Data', 'Other'];
 
-/// Mirrors a document in `opportunities/{oppId}`.
-///
-/// Startup name/logo are denormalised onto the opportunity so a discovery list
-/// can render each card from a single document — no N extra reads per card.
-/// This is a deliberate NoSQL modelling decision (read-optimised) worth calling
-/// out in the report's scalability section.
+/// Mirrors a document in `opportunities/{oppId}`. Startup name/logo are
+/// denormalised so a list renders each card from a single read.
 class Opportunity {
   final String id;
   final String startupId;
@@ -113,8 +107,7 @@ class Opportunity {
         'startupName': startupName,
         'startupLogoUrl': startupLogoUrl,
         'title': title,
-        // Lower-cased search key so we can do prefix search in Firestore, which
-        // has no built-in full-text search. Explained in the report.
+        // Lower-cased search key (Firestore has no full-text search).
         'titleLower': title.toLowerCase(),
         'description': description,
         'category': category,
