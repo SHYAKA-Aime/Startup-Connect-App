@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../app/theme.dart';
 import '../startups/presentation/startup_dashboard_screen.dart';
 import '../startups/presentation/startup_profile_screen.dart';
 
@@ -28,16 +27,14 @@ class _StartupShellState extends State<StartupShell> {
       bottomNavigationBar: NavigationBar(
         selectedIndex: _index,
         onDestinationSelected: (i) => setState(() => _index = i),
-        backgroundColor: AppColors.surface,
-        indicatorColor: AppColors.navy.withValues(alpha: 0.12),
         destinations: const [
           NavigationDestination(
               icon: Icon(Icons.dashboard_outlined),
-              selectedIcon: Icon(Icons.dashboard, color: AppColors.navy),
+              selectedIcon: Icon(Icons.dashboard),
               label: 'Dashboard'),
           NavigationDestination(
               icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person, color: AppColors.navy),
+              selectedIcon: Icon(Icons.person),
               label: 'Profile'),
         ],
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../app/theme.dart';
 import '../applications/presentation/my_applications_screen.dart';
 import '../home/presentation/home_screen.dart';
 import '../opportunities/presentation/explore_screen.dart';
@@ -33,24 +32,22 @@ class StudentShell extends ConsumerWidget {
         selectedIndex: index,
         onDestinationSelected: (i) =>
             ref.read(studentTabProvider.notifier).state = i,
-        backgroundColor: AppColors.surface,
-        indicatorColor: AppColors.navy.withValues(alpha: 0.12),
         destinations: const [
           NavigationDestination(
               icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home, color: AppColors.navy),
+              selectedIcon: Icon(Icons.home),
               label: 'Home'),
           NavigationDestination(
               icon: Icon(Icons.search_outlined),
-              selectedIcon: Icon(Icons.search, color: AppColors.navy),
+              selectedIcon: Icon(Icons.search),
               label: 'Explore'),
           NavigationDestination(
               icon: Icon(Icons.assignment_outlined),
-              selectedIcon: Icon(Icons.assignment, color: AppColors.navy),
+              selectedIcon: Icon(Icons.assignment),
               label: 'Applications'),
           NavigationDestination(
               icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person, color: AppColors.navy),
+              selectedIcon: Icon(Icons.person),
               label: 'Profile'),
         ],
       ),
